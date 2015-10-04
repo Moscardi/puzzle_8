@@ -20,15 +20,15 @@ programa será uma matriz de tamanho 9 × 9, que contém números de 1 a 8 em or
 e um caractere especial ‘*’ que por convenção define o espaço livre para movimentar as peças.
 A matriz abaixo é um possível exemplo para o seu programa:
 
-12 8 3
- 1 * 4
- 7 6 5
+2 8 3                                                                                                             
+1 * 4   
+7 6 5
 
 A solução desse jogo acontece quando a matriz é manipulada de tal forma a ficar com a seguinte
 configuração:
 
-1 2 3
-8 * 4
+1 2 3   
+8 * 4                                                                                                            
 7 6 5
 
 ou seja com caractere ‘*’ (espaço) no meio do tabuleiro e os números respeitando ordenação
@@ -38,37 +38,38 @@ O objetivo desse laboratório é determinar o número mínimo de movimentos para
 solução. Por exemplo, para o exemplo acima temos os seguintes movimentos
 Número
 
-2 8 3    2 * 3    * 2 3	   1 2 3    1 2 3
-1 * 4 -> 1 8 4 -> 1 8 4 -> * 8 4 -> 8 * 4
-7 6 5    7 6 5    7 6 5	   7 6 5    7 6 5
+2 8 3 |->|2 * 3| -> |* 2 3| -> |1 2 3| -> |1 2 3     
+1 * 4 |->|1 8 4| -> |1 8 4| -> |* 8 4| -> |8 * 4   
+7 6 5 |->|7 6 5| -> |7 6 5| -> |7 6 5| -> |7 6 5
 
-(CIMA/ESQUERDA/BAIXO/DIREITA)
-	Matrizes com diferentes configura ̧c ̃oes podem exigir muito esfor ̧co computacional:
-1 3 4
-8 * 5
-7 2 6
-Solução: 6 movimentos.
+(CIMA/ESQUERDA/BAIXO/DIREITA)                                                                                                                                                                      
+	Matrizes com diferentes configura ̧ç ̃oes podem exigir muito esfor ̧co computacional:
+	
+1 3 4                                                                                                                                                                      
+8 * 5                                                                                                                                                                      
+7 2 6                                                                                                                                                                      
+Solução: 6 movimentos.                                                                                                                                                                      
 
-2 3 1
-7 * 8
-6 5 4
-Solução: 14 movimentos.
-
-2 3 1
-8 * 4
-7 6 5
-Solução: 16 movimentos.
-
-8 7 6
-1 * 5
-2 3 4
-Solução: 28 movimentos.
-
-8 7 6
-1 b 5
-2 3 4
-Solução: ? (deus sabe -> desafio).
-
+2 3 1                                                                                                                                                                      
+7 * 8                                                                                                                                                                      
+6 5 4                                                                                                                                                                      
+Solução: 14 movimentos.                                                                                                                                                                      
+                                                                                                                                                                      
+2 3 1                                                                                                                                                                      
+8 * 4                                                                                                                                                                      
+7 6 5                                                                                                                                                                      
+Solução: 16 movimentos.                                                                                                                                                                      
+                                                                                                                                                                      
+8 7 6                                                                                                                                                                      
+1 * 5                                                                                                                                                                      
+2 3 4                                                                                                                                                                      
+Solução: 28 movimentos.                                                                                                                                                                      
+                                                                                                                                                                      
+8 7 6                                                                                                                                                                      
+1 b 5                                                                                                                                                                      
+2 3 4                                                                                                                                                                      
+Solução: ? (deus sabe -> desafio).                                                                                                                                                                      
+                                                                                                                                                                      
 # 4 Algoritimo
   Nesse trabalho você é livre para escolher se vai utilizar uma pilha ou fila, utilizando vetor
 ou lista. Tome cuidado para o seu programa não estourar as possibilidades facilmente. Pense
