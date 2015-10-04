@@ -67,7 +67,7 @@ int verifica_dados(char** dados){
 	return (1 == 1);
 }
 
-Pilha* ramifica(Pilha* arvore,int *nivel){
+int* ramifica(Pilha* arvore,int *nivel){
 	Pilha *auxiliar = create_stack();
 	char **ramo,**temp;
 	char troca;
@@ -81,7 +81,7 @@ Pilha* ramifica(Pilha* arvore,int *nivel){
 	while(!empty(arvore)){
 		ramo = pop(arvore);
 		if(verifica_tabuleiro(ramo)){
-			return NULL;
+			return nivel;
 		}
 		for(a=0;a<3;a++){
 			for(b=0;b<3;b++){
@@ -140,7 +140,7 @@ Pilha* ramifica(Pilha* arvore,int *nivel){
 	free_stack(arvore);
 
 	*nivel = *nivel + 1;
-	return auxiliar;
+	return ramifica(auxiliar,nivel);
 }
 
 int verifica_tabuleiro(char **tabuleiro){
@@ -157,9 +157,7 @@ int main(int argc, char const *argv[])
 	Pilha* arvore;
 	arvore = entrada_dados();		
 	int nivel=0;
-	do{	
-		arvore = ramifica(arvore,&nivel);
-	}while(arvore != NULL);	
+	ramifica(arvore,&nivel);
 	printf("Número de passos %d\n",nivel);
 
 	free_stack(arvore);
