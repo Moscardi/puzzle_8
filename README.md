@@ -66,7 +66,7 @@ Solução: 16 movimentos.
 Solução: 28 movimentos.                                                                                                                                                                      
                                                                                                                                                                       
 8 7 6                                                                                                                                                                      
-1 b 5                                                                                                                                                                      
+1 * 5                                                                                                                                                                      
 2 3 4                                                                                                                                                                      
 Solução: ? (deus sabe -> desafio).                                                                                                                                                                      
                                                                                                                                                                       
