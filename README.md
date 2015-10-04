@@ -10,8 +10,10 @@ Trabalho Prático - T1
   O objetivo desse trabalho prático é aplicar os conceitos do Tipo Abstrato de Dados (TAD)
 Fila, Lista ou Pilha para a resolução de um jogo conhecido como Quebra Cabȩca de Pastinha
 (8-Puzzle).
+
 #2 O jogo
   O jogo desse laboratório trata-se de uma pequena caixa quadrada, com 9 ou 16 espaços combertos por 8 ou 15 peças também quadradas, que contém números, figuras ou desenhos, e um espaço vazio para que se possa movimentá-las. As peças devem ser ordenadas na caixa em sequência, deslocando-se as peças ocupando o espaço vazio, fazendo quantos movimentos quiser sem retirá-las da caixa, colocando-as na ordem ou em alguma ordem pré-estabelecida.
+  
 # 3 Entrada
   Nesse primeiro trabalho prático iremos trabalhar com o jogo 8-puzzle. A entrada para o seu
 programa será uma matriz de tamanho 9 × 9, que contém números de 1 a 8 em ordem aleatória
