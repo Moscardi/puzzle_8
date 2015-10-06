@@ -52,3 +52,26 @@ void free_matriz(char **lixo){
 	free(lixo[2]);
 	free(lixo);
 }
+
+int compara_tabuleiros(char** tab1, char** tab2){
+	int a, b;
+	for (a = 0; a < 3; ++a)
+	{
+		for (b = 0; b < 3; ++b)
+		{
+			if(tab1[a][b] != tab2[a][b]){
+				return (1 == 0);
+			}
+		}
+	}
+	return (1 == 1);
+}
+
+void copia_tabuleiro(char **info, char**copia){
+	int a,b;	
+	for(a=0;a<3;a++){
+		for(b=0;b<3;b++){
+			copia[a][b] = info[a][b];
+		}
+	}
+}

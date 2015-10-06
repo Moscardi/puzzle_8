@@ -4,25 +4,19 @@
 
 typedef struct node
 {
+	unsigned long int index;
 	char **tabuleiro;
 	struct node* next;
 }No;
 
-typedef struct pilha
+typedef struct lista
 {
-	No *topo;
-}Pilha;
+	No *inicio;
+	No *fim;
+}Lista;
 
-Pilha* create_stack(void);
+Pilha* create_list(void);
 
-void copia_tabuleiro(char **info, char**copia);
-
-void push (Pilha *p, char **tabuleiro);
-
-int compara_tabuleiros(char** tab1, char** tab2);
-
-char** pop (Pilha *p);
-
-void free_stack(Pilha *p);
+void free_list(Pilha *p);
 
 int empty (Pilha *p);
