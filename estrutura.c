@@ -1,15 +1,18 @@
 #include "estrutura.h"
 
 /*
-
-*/
-
+ *Cria uma nova pilha instanciando os ponteiros como NULL
+ */
 Pilha* create_stack(void){
 	Pilha *p = (Pilha*)malloc(sizeof(Pilha));
 	p->topo = NULL;
 	return p;
 }
 
+/*
+ *Adiciona um No a pilha encadeada, tem como esntrada um estado
+ *do puzzle.
+ */
 void push (Pilha *p, char **tabuleiro){
 	No *n = (No*)malloc(sizeof(No));
 	n->tabuleiro = (char**)malloc(3*sizeof(char*));
@@ -29,29 +32,10 @@ void push (Pilha *p, char **tabuleiro){
 	p->topo = n;
 }
 
-int compara_tabuleiros(char** tab1, char** tab2){
-	int a, b;
-	for (a = 0; a < 3; ++a)
-	{
-		for (b = 0; b < 3; ++b)
-		{
-			if(tab1[a][b] != tab2[a][b]){
-				return (1 == 0);
-			}
-		}
-	}
-	return (1 == 1);
-}
-
-void copia_tabuleiro(char **info, char**copia){
-	int a,b;	
-	for(a=0;a<3;a++){
-		for(b=0;b<3;b++){
-			copia[a][b] = info[a][b];
-		}
-	}
-}
-
+/*
+ *Remove o ultimo No adicionado na Pilha, retornando um estado do
+ *puzzle
+ */
 char** pop (Pilha *p){
 	if (empty(p))
 	{
@@ -64,7 +48,9 @@ char** pop (Pilha *p){
 	return elem;
 }
 
-
+/*
+ *Remove da memória a Pilha inteira
+ */
 void free_stack(Pilha *p){
 	No *n = p->topo;
 	char* aux;
@@ -83,6 +69,9 @@ void free_stack(Pilha *p){
 	free(p); /*desalocando pilha*/
 }
 
+/*
+ *Verifica se a pilha está vazia
+ */
 int empty (Pilha *p){
 	return (p->topo == NULL);
 }

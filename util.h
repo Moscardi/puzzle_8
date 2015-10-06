@@ -11,3 +11,7 @@ int verifica_tabuleiro(char **tabuleiro);
 Pilha* entrada_dados(void);
 
 void free_matriz(char **lixo);
+
+int compara_tabuleiros(char** tab1, char** tab2);
+
+void copia_tabuleiro(char **info, char**copia);
