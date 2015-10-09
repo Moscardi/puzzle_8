@@ -1,77 +1,61 @@
-#include "estrutura.h"
+#include "fila.h"
 
 /*
- *Cria uma nova pilha instanciando os ponteiros como NULL
- */
-Pilha* create_stack(void){
-	Pilha *p = (Pilha*)malloc(sizeof(Pilha));
-	p->topo = NULL;
-	return p;
+typedef struct node
+{
+	int tabuleiro;
+	struct node* next;
+}No;
+
+typedef struct fila
+{
+	No *head;
+	No *end
+}Fila;
+*/
+
+Fila* create_queue (void) {
+    Fila *f = (Fila*)malloc(sizeof(Fila));
+    f->head = NULL;
+    f->end = NULL;
+    return f;
 }
 
-/*
- *Adiciona um No a pilha encadeada, tem como esntrada um estado
- *do puzzle.
- */
-void push (Pilha *p, char **tabuleiro){
-	No *n = (No*)malloc(sizeof(No));
-	n->tabuleiro = (char**)malloc(3*sizeof(char*));
-	n->tabuleiro[0] = (char*)malloc(3*sizeof(char));
- 	n->tabuleiro[1] = (char*)malloc(3*sizeof(char));
- 	n->tabuleiro[2] = (char*)malloc(3*sizeof(char));
- 	n->tabuleiro[0][0] = tabuleiro[0][0];
- 	n->tabuleiro[0][1] = tabuleiro[0][1];
- 	n->tabuleiro[0][2] = tabuleiro[0][2];
- 	n->tabuleiro[1][0] = tabuleiro[1][0];
- 	n->tabuleiro[1][1] = tabuleiro[1][1];
- 	n->tabuleiro[1][2] = tabuleiro[1][2];
- 	n->tabuleiro[2][0] = tabuleiro[2][0];
- 	n->tabuleiro[2][1] = tabuleiro[2][1];
- 	n->tabuleiro[2][2] = tabuleiro[2][2];
-	n->next = p->topo;
-	p->topo = n;
+void enqueue (Fila *f, int puzzle) {
+    No *novo = (No*)malloc(sizeof(No));
+    novo->tabuleiro = puzzle;
+    novo->next = NULL;
+    if(empty(f)){
+    	f->head = novo;
+    	f->end = novo;   	
+    	return;    	
+    }    
+    (f->end)->next = novo;
+    f->end = novo;
 }
 
-/*
- *Remove o ultimo No adicionado na Pilha, retornando um estado do
- *puzzle
- */
-char** pop (Pilha *p){
-	if (empty(p))
-	{
-		exit(1);/*Pilha vazia*/
-	}
-	No *n = p->topo;
-	char** elem = n->tabuleiro;
-	p->topo = n->next;
-	free(n);
-	return elem;
+int dequeue (Fila *f) {
+    if (empty(f)) {
+        printf("Erro:fila vazia!");
+        exit(1); /*aborta programa*/
+    }
+    int v = (f->head)->tabuleiro;
+    No *lixo = f->head;
+    f->head = (f->head)->next;
+    free(lixo);
+    return v;
 }
 
-/*
- *Remove da memória a Pilha inteira
- */
-void free_stack(Pilha *p){
-	No *n = p->topo;
-	char* aux;
-	while(n != NULL){
-		No *temp = n->next;
-		aux = n->tabuleiro[0];
-		free(aux);
-		aux = n->tabuleiro[1];
-		free(aux);
-		aux = n->tabuleiro[2];
-		free(aux);
-		free(n->tabuleiro);
-		free(n); /*desalocando os nós*/
-		n = temp;
-	}	
-	free(p); /*desalocando pilha*/
+int empty (Fila *f) {
+    return (f->head == NULL);
 }
 
-/*
- *Verifica se a pilha está vazia
- */
-int empty (Pilha *p){
-	return (p->topo == NULL);
+void free_queue (Fila *f) {
+    No *temp;
+    while(!empty(f)){
+    	temp = f->head;
+    	f->head = temp->next;
+    	free(temp);
+    }
+    free(f);
 }

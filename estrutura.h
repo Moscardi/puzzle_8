@@ -4,25 +4,22 @@
 
 typedef struct node
 {
-	char **tabuleiro;
+	int tabuleiro;
 	struct node* next;
 }No;
 
-typedef struct pilha
+typedef struct fila
 {
-	No *topo;
-}Pilha;
+	No *head;
+	No *end
+}Fila;
 
-Pilha* create_stack(void);
+Fila* create_queue (void);
 
-void copia_tabuleiro(char **info, char**copia);
+void enqueue (Fila *f, int puzzle);
 
-void push (Pilha *p, char **tabuleiro);
+int dequeue (Fila *f);
 
-int compara_tabuleiros(char** tab1, char** tab2);
+int empty (Fila *f);
 
-char** pop (Pilha *p);
-
-void free_stack(Pilha *p);
-
-int empty (Pilha *p);
+void free_queue (Fila *f);
