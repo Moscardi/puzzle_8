@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "tabuleiro.h"
 
 typedef struct node
 {
@@ -10,8 +8,8 @@ typedef struct node
 
 typedef struct fila
 {
-	No *head;
-	No *end
+	struct node *head;
+	struct node *end;
 }Fila;
 
 Fila* create_queue (void);
@@ -23,3 +21,7 @@ int dequeue (Fila *f);
 int empty (Fila *f);
 
 void free_queue (Fila *f);
+
+int tabuleiro_exist(Fila *f, int tabuleiro);
+
+int tam_fila(Fila* f);
