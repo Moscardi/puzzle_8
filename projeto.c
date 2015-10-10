@@ -55,12 +55,21 @@ void printMatriz(char **puzzle);
 */
 
 #include "estrutura.h"
+#include <time.h>
 
 /*
  *Função Main
  */
 int main(int argc, char const *argv[])
-{
+{	
+	clock_t inicio, fim;
+	inicio = clock();
+	/*
+	 *Colocar aqui as chamadas de função para poder obter o tempo final de execução
+	 */
 	printf("%d\n", manhattan(765804123));
+	fim = clock();
+
+	printf("\n\nExecução do algoritimo em %ld segundos\n", (fim - inicio)/ CLOCKS_PER_SEC);
 	return 0;
 }
