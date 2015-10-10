@@ -48,6 +48,10 @@ void free_queue (Fila *f);
 int tabuleiro_exist(Fila *f, int tabuleiro);
 
 int tam_fila(Fila* f);
+
+int manhattan(int tabuleiro);
+
+void printMatriz(char **puzzle);
 */
 
 #include "estrutura.h"
@@ -57,6 +61,6 @@ int tam_fila(Fila* f);
  */
 int main(int argc, char const *argv[])
 {
-	
+	printf("%d\n", manhattan(765804123));
 	return 0;
 }

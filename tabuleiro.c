@@ -50,7 +50,7 @@ char** intToMatriz(int tabuleiro){
 	{
 		for ( b = 2; b >= 0; --b)
 		{
-			retorno[a][b] = tabuleiro % 10;			
+			retorno[a][b] = tabuleiro % 10 + 48;			
 			tabuleiro = tabuleiro / 10;
 		}
 	}
@@ -67,7 +67,7 @@ int matrizToInt(char **tabuleiro){
 	{
 		for ( b = 2; b >= 0; --b)
 		{
-			retorno = retorno + ((int)(tabuleiro[a][b]) + 48) * (int)(pow(10,conta)); 
+			retorno = retorno + ((int)(tabuleiro[a][b]) - 48) * (int)(pow(10,conta)); 
 			conta++;
 		}
 	}
@@ -147,3 +147,51 @@ int moveDown(int tabuleiro){
 	puzzle[y+1][x] = aux;
 	return matrizToInt(puzzle);
 }
+int manhattan(int tabuleiro){
+	char **puzzle = intToMatriz(tabuleiro);
+	char **matriz_custo = create_matriz();
+	int a, b, custo;
+	for(a = 0; a < 3; a++){
+		for(b = 0; b < 3; b++){
+			if(puzzle[a][b] == '1')			
+				matriz_custo[a][b] = (abs(0 - a) + abs(0 - b)) + 48;
+			else if(puzzle[a][b] == '2')
+				matriz_custo[a][b] = (abs(0 - a) + abs(1 - b)) + 48;
+			else if(puzzle[a][b] == '3')
+				matriz_custo[a][b] = (abs(0 - a) + abs(2 - b)) + 48;
+			else if(puzzle[a][b] == '4')
+				matriz_custo[a][b] = (abs(1 - a) + abs(2 - b)) + 48;
+			else if(puzzle[a][b] == '5')
+				matriz_custo[a][b] = (abs(2 - a) + abs(2 - b)) + 48;
+			else if(puzzle[a][b] == '6')
+				matriz_custo[a][b] = (abs(2 - a) + abs(1 - b)) + 48;
+			else if(puzzle[a][b] == '7')
+				matriz_custo[a][b] = (abs(2 - a) + abs(0 - b)) + 48;
+			else if(puzzle[a][b] == '8')
+				matriz_custo[a][b] = (abs(1 - a) + abs(0 - b)) + 48;
+			else if(puzzle[a][b] == '0')
+				matriz_custo[a][b] = (abs(1 - a) + abs(1 - b)) + 48;
+		}
+	}
+	custo = matrizToInt(matriz_custo);
+	free_matriz(puzzle);
+	free_matriz(matriz_custo);
+	return custo;
+}
+
+/*
+ *Imprime o tabuleiro
+ */
+ void printMatriz(char **puzzle	){
+ 	int a,b;
+ 	printf("----\n");
+ 	for (a = 0; a < 3; ++a)
+ 	{
+ 		for (b = 0; b < 3; ++b)
+ 		{
+ 			printf("%c", puzzle[a][b]);
+ 		}
+ 		printf("\n");
+ 	}
+ 	printf("\n");
+ }

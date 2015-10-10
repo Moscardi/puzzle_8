@@ -29,3 +29,7 @@ int moveLeft(int tabuleiro);
 int moveUp(int tabuleiro);
 
 int moveDown(int tabuleiro);
+
+int manhattan(int tabuleiro);
+
+void printMatriz(char **puzzle);
