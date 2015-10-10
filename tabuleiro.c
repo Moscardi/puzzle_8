@@ -170,7 +170,7 @@ int manhattan(int tabuleiro){
 			else if(puzzle[a][b] == '8')
 				matriz_custo[a][b] = (abs(1 - a) + abs(0 - b)) + 48;
 			else if(puzzle[a][b] == '0')
-				matriz_custo[a][b] = (abs(1 - a) + abs(1 - b)) + 48;
+				matriz_custo[a][b] = 0 + 48;
 		}
 	}
 	custo = matrizToInt(matriz_custo);
