@@ -52,6 +52,8 @@ int tam_fila(Fila* f);
 int manhattan(int tabuleiro);
 
 void printMatriz(char **puzzle);
+
+int getCusto(int tabuleiro);
 */
 
 #include "estrutura.h"
@@ -67,9 +69,12 @@ int main(int argc, char const *argv[])
 	/*
 	 *Colocar aqui as chamadas de função para poder obter o tempo final de execução
 	 */
+	printf("%d\n", getCusto(765804123));
 	printf("%d\n", manhattan(765804123));
-	fim = clock();
+	printMatriz(intToMatriz(manhattan(765804123)));
 
+	/////////////////////////////////
+	fim = clock();
 	printf("\n\nExecução do algoritimo em %ld segundos\n", (fim - inicio)/ CLOCKS_PER_SEC);
 	return 0;
 }

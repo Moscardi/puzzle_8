@@ -33,3 +33,5 @@ int moveDown(int tabuleiro);
 int manhattan(int tabuleiro);
 
 void printMatriz(char **puzzle);
+
+int getCusto(int tabuleiro);

@@ -195,3 +195,32 @@ int manhattan(int tabuleiro){
  	}
  	printf("\n");
  }
+
+ int getCusto(int tabuleiro){
+	char **puzzle = intToMatriz(tabuleiro);
+	int a, b, custo = 0;
+	for(a = 0; a < 3; a++){
+		for(b = 0; b < 3; b++){
+			if(puzzle[a][b] == '1')			
+				custo = custo + (abs(0 - a) + abs(0 - b));
+			else if(puzzle[a][b] == '2')
+				custo = custo + (abs(0 - a) + abs(1 - b));
+			else if(puzzle[a][b] == '3')
+				custo = custo + (abs(0 - a) + abs(2 - b));
+			else if(puzzle[a][b] == '4')
+				custo = custo + (abs(1 - a) + abs(2 - b));
+			else if(puzzle[a][b] == '5')
+				custo = custo + (abs(2 - a) + abs(2 - b));
+			else if(puzzle[a][b] == '6')
+				custo = custo + (abs(2 - a) + abs(1 - b));
+			else if(puzzle[a][b] == '7')
+				custo = custo + (abs(2 - a) + abs(0 - b));
+			else if(puzzle[a][b] == '8')
+				custo = custo + (abs(1 - a) + abs(0 - b));
+			else if(puzzle[a][b] == '0')
+				custo = custo + 0;
+		}
+	}	
+	free_matriz(puzzle);
+	return custo;
+}
