@@ -59,72 +59,66 @@ int getCusto(int tabuleiro);
 #include "estrutura.h"
 #include <time.h>
 
-int processamento(Fila *pais, Fila *filhos, int passos){
+int processamento(Fila *pais, Fila *filhos, int *passos){
 	Fila *novos_filhos = create_queue();
-	Fila *filhos_selecionado = create_queue();
-	int menor_custo, x,y;
-	int estado_pai;
-	int temp_estado;
-	while(!empty(filhos)){		
-		novos_filhos = create_queue();
-		estado_pai = dequeue(filhos);
-		enqueue(pais,estado_pai);
-		if (verifica_tabuleiro(&estado_pai))
-		{
-			free_queue(novos_filhos);
-			free_queue(filhos_selecionado);
-			free_queue(pais);
-			free_queue(filhos);
-			return passos;
-		}
-		returnSpace(estado_pai,&x,&y);
-		if(x == 0 || x == 1){
-			temp_estado = moveRight(estado_pai);
-			if(!tabuleiro_exist(pais,temp_estado)){
-				enqueue(novos_filhos,temp_estado);
-			}	
-		}if (x == 1 || x == 2)
-		{
-			temp_estado = moveLeft(estado_pai);
-			if(!tabuleiro_exist(pais,temp_estado)){
-				enqueue(novos_filhos,temp_estado);
-			}	
-		}if (y == 0 || y == 1)
-		{
-			temp_estado = moveDown(estado_pai);
-			if(!tabuleiro_exist(pais,temp_estado)){
-				enqueue(novos_filhos,temp_estado);
-			}	
-		}if (y == 1 || y == 2)
-		{
-			temp_estado = moveUp(estado_pai);
-			if(!tabuleiro_exist(pais,temp_estado)){
-				enqueue(novos_filhos,temp_estado);
-			}	
-		}
-		//seleciona o melhor filho e mata os demais
-		if (empty(novos_filhos))
-		{
-			printf("Deu merda!!!!\n");
-			return 0;
-		}
-		menor_custo = 999;
-		while(!empty(novos_filhos)){
-			temp_estado = dequeue(novos_filhos);
-			if(menor_custo > getCusto(temp_estado)){
-				free_queue(filhos_selecionado);
-				filhos_selecionado = create_queue();
-				enqueue(filhos_selecionado,temp_estado);
-			}
-			else if(menor_custo == getCusto(temp_estado)){
-				enqueue(filhos_selecionado,temp_estado);
+	Fila *melhores_filhos = create_queue();
+	int puzzle,x,y,tab_possivel;
+	while(!empty(filhos)){
+		puzzle = dequeue(filhos);
+		if(verifica_tabuleiro(&puzzle)){
+			return (1 == 1);
+		}	
+		//processa as possibilidades
+		returnSpace(puzzle,&x,&y);
+		if (y == 0 || y == 1)
+		{			
+			tab_possivel = moveDown(puzzle);
+			if(!tabuleiro_exist(pais,tab_possivel)){
+				enqueue(novos_filhos,tab_possivel);
 			}
 		}
-		free_queue(novos_filhos);
+		if (y == 1 || y == 2)
+		{		
+			tab_possivel = moveUp(puzzle);
+			if(!tabuleiro_exist(pais,tab_possivel)){
+				enqueue(novos_filhos,tab_possivel);
+			}
+		}
+		if (x == 0 || x == 1)
+		{
+			tab_possivel = moveRight(puzzle);
+			if(!tabuleiro_exist(pais,tab_possivel)){
+				enqueue(novos_filhos,tab_possivel);
+			}
+		}
+		if (x == 1 || x == 2)
+		{
+			tab_possivel = moveLeft(puzzle);
+			if(!tabuleiro_exist(pais,tab_possivel)){
+				enqueue(novos_filhos,tab_possivel);
+			}
+		}		
+	}
+	int custo = 9999;
+	while(!empty(novos_filhos)){
+		puzzle = dequeue(novos_filhos);
+		if(custo > getCusto(puzzle)){
+			free_queue(melhores_filhos);
+			melhores_filhos = create_queue();
+			enqueue(melhores_filhos,puzzle);
+			custo = getCusto(puzzle);
+		}
+		else if (custo == getCusto(puzzle))
+		{
+			enqueue(melhores_filhos,puzzle);
+		}
 	}
 	free_queue(filhos);
-	return processamento(pais, filhos_selecionado,++passos);
+	filhos = create_queue();
+	filhos = melhores_filhos;
 
+	*passos = *passos + 1;
+	return (1 == 0);
 }
 
 /*
@@ -141,16 +135,19 @@ int main(int argc, char const *argv[])
 	__fpurge(stdin);
 	scanf("%c%c%c",&(temp[2][0]),&(temp[2][1]),&(temp[2][2]));
 	
-	Fila *jogo = create_queue();
+	Fila *jogo = create_queue(), *historico = create_queue();
 	enqueue(jogo,matrizToInt(temp));
 	free_matriz(temp);
+	int passos=0;
 	////////////////////
 	clock_t inicio, fim;
 	inicio = clock();	
 	/*
 	 *Colocar aqui as chamadas de função para poder obter o tempo final de execução
 	 */
-	printf("O número de passos foi %d\n", processamento(create_queue(),jogo,0));
+	 while(!processamento(historico,jogo,&passos));
+ 	//processamento(create_queue(),jogo,&passos);
+	printf("O número de passos foi %d\n", passos);
 	/////////////////////////////////
 	fim = clock();
 	printf("\n\nExecução do algoritimo em %ld segundos\n", (fim - inicio)/ CLOCKS_PER_SEC);
