@@ -9,7 +9,6 @@ Lista* create_list (void)
 
 No* create_no(int* tabuleiro, unsigned short int* passo)
 {
-    printf("INicio da função que cria nó\n");
     No* novo = (No*)malloc(sizeof(No));
     novo->custo = getCusto(tabuleiro);
     novo->tabuleiro = *tabuleiro;
@@ -20,7 +19,6 @@ No* create_no(int* tabuleiro, unsigned short int* passo)
 
 void insertInList (Lista *f, No* novo)
 {
-    printf("Inicio função inserir na lista");
     if(listaIsEmpty(f) || novo->custo < f->head->custo)
     {
         novo->next = f->head;
@@ -74,14 +72,17 @@ void free_list (Lista *f)
 
 int puzzleExist(Lista *f, int* puzzle)
 {
-    Lista* aux = f;
+    Lista* aux;
+    aux = f;
 
     while(!listaIsEmpty(aux))
     {
+        printf("%d == %d ?\n",(aux->head->tabuleiro), *puzzle);
         if(compara_tabuleiros(&(aux->head->tabuleiro),puzzle)){
             return (1 == 1);
         }
         aux->head = aux->head->next;
     }
+    printf("Nenhuma tabuleiro igual\n");
     return (1 == 0);
 }

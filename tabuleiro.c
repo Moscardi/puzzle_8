@@ -76,6 +76,8 @@ void getSpace(int *tabuleiro, int *x, int *y)
 
 void moveRight(int *tabuleiro)
 {
+    printMatrizInt(tabuleiro);
+    printf("Moveu o espaço para direita\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
@@ -89,6 +91,8 @@ void moveRight(int *tabuleiro)
 
 void moveLeft(int *tabuleiro)
 {
+    printMatrizInt(tabuleiro);
+    printf("Moveu o espaço para esquerda\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
@@ -102,6 +106,8 @@ void moveLeft(int *tabuleiro)
 
 void moveUp(int *tabuleiro)
 {
+    printMatrizInt(tabuleiro);
+    printf("Moveu o espaço para cima\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
@@ -115,6 +121,8 @@ void moveUp(int *tabuleiro)
 
 void moveDown(int *tabuleiro)
 {
+    printMatrizInt(tabuleiro);
+    printf("Moveu o espaço para baixo\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;

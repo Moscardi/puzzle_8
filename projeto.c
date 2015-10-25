@@ -6,7 +6,7 @@
  * \param Lista* espera
  * \return int
  */
-int TotalPassos(Lista* processados, Lista* espera)
+unsigned short int TotalPassos(Lista* processados, Lista* espera)
 {
     No* processar= removeFromList(espera);
     int newPuzzle;
@@ -14,7 +14,7 @@ int TotalPassos(Lista* processados, Lista* espera)
     insertInList(processados,processar);
     if(verifica_tabuleiro(&(processar->tabuleiro)))
     {
-        int menor_passo = processar->passo;
+        unsigned short int menor_passo = processar->passo;
         free(processar);
         free(newPasso);
         free_list(espera);
@@ -31,6 +31,7 @@ int TotalPassos(Lista* processados, Lista* espera)
         {
             *newPasso = processar->passo + 1;
             insertInList(espera,create_no(&newPuzzle,newPasso));
+            printf("tabuleiro adicionado a lista de espera\n");
         }
     }
     if(x == 1 || x == 2)
@@ -41,6 +42,7 @@ int TotalPassos(Lista* processados, Lista* espera)
         {
             *newPasso = processar->passo + 1;
             insertInList(espera,create_no(&newPuzzle,newPasso));
+            printf("tabuleiro adicionado a lista de espera\n");
         }
     }
     if(y == 0 || y == 1)
@@ -51,6 +53,7 @@ int TotalPassos(Lista* processados, Lista* espera)
         {
             *newPasso = processar->passo + 1;
             insertInList(espera,create_no(&newPuzzle,newPasso));
+            printf("tabuleiro adicionado a lista de espera\n");
         }
     }
     if(y == 1 || y == 2)
@@ -61,11 +64,12 @@ int TotalPassos(Lista* processados, Lista* espera)
         {
             *newPasso = processar->passo + 1;
             insertInList(espera,create_no(&newPuzzle,newPasso));
+            printf("tabuleiro adicionado a lista de espera\n");
         }
     }
 
+    scanf("%d",newPasso);
     free(newPasso);
-
     return TotalPassos(processados,espera);
 }
 
@@ -80,7 +84,7 @@ int main(int argc, char const *argv[])
 {
     char **temp = create_matriz();
     clock_t inicio, fim;
-    int numeroPassos = 0;
+    unsigned short int numeroPassos = 0;
     Lista* puzzle = create_list();
 
     /**< Pega os dados do teclado para montar o tabuleiro */
@@ -94,14 +98,9 @@ int main(int argc, char const *argv[])
     temp[1][1] = '9';
 
     /**< insere o tabuleiro em uma lista inicial para começar o processamento dos números de passo */
-    printf("antes transformar o dado\n");
     int *temporario_puzzle = (int*)malloc(sizeof(int));
-    printf("criou memoria para um ponteiro inteiro\n");
     *temporario_puzzle = matrizToInt(temp);
-    printf("Transformou char em inteiro\n");
-    No* inicial = create_no(temporario_puzzle,0);
-    printf("Cria o primeiro nó");
-    insertInList(puzzle,inicial);
+    insertInList(puzzle,create_no(temporario_puzzle,&numeroPassos));
     free(temporario_puzzle);
 
     /**< Pega o tempo inicial do sistema para calcular o tempo gasto */
