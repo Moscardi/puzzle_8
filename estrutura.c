@@ -1,109 +1,84 @@
 #include "estrutura.h"
-/*
-typedef struct node
+
+Lista* create_list (void)
 {
-	int tabuleiro;
-	struct node* next;
-}No;
-
-typedef struct fila
-{
-	No *head;
-	No *end
-}Fila;
-
-int verifica_tabuleiro(int *tabuleiro);
-
-void free_matriz(char **lixo);
-
-char ** create_matriz();
-
-int compara_tabuleiros(int tab1, int tab2);
-
-void copia_tabuleiro(int *info, int *copia);
-
-char** intToMatriz(int tabuleiro);
-
-int matrizToInt(char **tabuleiro);
-
-void returnSpace(int tabuleiro);
-
-int moveRight(int tabuleiro);
-
-int moveLeft(int tabuleiro);
-
-int moveUp(int tabuleiro);
-
-int moveDown(int tabuleiro);
-*/
-
-Fila* create_queue (void) {
-    Fila *f = (Fila*)malloc(sizeof(Fila));
+    Lista *f = (Lista*)malloc(sizeof(Lista));
     f->head = NULL;
-    f->end = NULL;
     return f;
 }
 
-void enqueue (Fila *f, int puzzle) {
-    No *novo = (No*)malloc(sizeof(No));
-    novo->tabuleiro = puzzle;
+No* create_no(int* tabuleiro, unsigned short int* passo)
+{
+    No* novo = (No*)malloc(sizeof(No));
+    novo->custo = getCusto(tabuleiro);
+    novo->tabuleiro = *tabuleiro;
+    novo->passo = *passo;
     novo->next = NULL;
-    if(empty(f)){
-    	f->head = novo;
-    	f->end = novo;   	
-    	return;    	
-    }    
-    (f->end)->next = novo;
-    f->end = novo;
+    return novo;
 }
 
-int dequeue (Fila *f) {
-    if (empty(f)) {
+void insertInList (Lista *f, No* novo)
+{
+    if(listaIsEmpty(f) || novo->custo < f->head->custo)
+    {
+        novo->next = f->head;
+        f->head = novo;
+        return;
+    }
+    Lista* l = f;
+    while(!listaIsEmpty(l))
+    {
+        if(l->head->next == NULL || novo->custo < l->head->next->custo)
+        {
+            novo->next = l->head->next;
+            l->head->next = novo;
+            return;
+        }
+        l->head = l->head->next;
+    }
+    printf("Erro ao inserir No na Lista\n");
+    exit(1);
+}
+
+No* removeFromList (Lista *f)
+{
+    if (listaIsEmpty(f))
+    {
         printf("Erro:fila vazia!");
         exit(1); /*aborta programa*/
     }
-    int v = (f->head)->tabuleiro;
-    No *lixo = f->head;
-    f->head = (f->head)->next;
-    free(lixo);
-    return v;
+    No* retorno = f->head;
+    f->head = f->head->next;
+    return retorno;
 }
 
-int empty (Fila *f) {
+int listaIsEmpty (Lista *f)
+{
     return (f->head == NULL);
 }
 
-void free_queue (Fila *f) {
+void free_list (Lista *f)
+{
     No *temp;
-    while(!empty(f)){
-    	temp = f->head;
-    	f->head = temp->next;
-    	free(temp);
+    while(!listaIsEmpty(f))
+    {
+        temp = f->head;
+        f->head = temp->next;
+        free(temp);
     }
     free(f);
 }
 
-int tabuleiro_exist(Fila *f, int tabuleiro){
-	No *temp;
-	Fila *aux = f;
-	while(!empty(f)){
-		temp = aux->head;
-		aux->head = temp->next;
-		if(compara_tabuleiros(temp->tabuleiro, tabuleiro)){
-			return (1 == 1);
-		}
-	}
-	return (1 == 0);
-}
+int puzzleExist(Lista *f, int* puzzle)
+{
+    Lista* aux = f;
 
-int tam_fila(Fila* f){
-	No *temp;
-	Fila *aux = f;
-	int contador=0;
-	while(!empty(aux)){
-		temp = f->head;
-		f->head = temp->next;
-		contador++;
-	}
-	return contador;
+    while(!listaIsEmpty(aux))
+    {
+        if(compara_tabuleiros(&(aux->head->tabuleiro),puzzle)){
+            return (1 == 1);
+        }
+        aux->head = aux->head->next;
+    }
+    return (1 == 0);
 }
