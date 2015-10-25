@@ -9,6 +9,7 @@ Lista* create_list (void)
 
 No* create_no(int* tabuleiro, unsigned short int* passo)
 {
+    printf("INicio da função que cria nó\n");
     No* novo = (No*)malloc(sizeof(No));
     novo->custo = getCusto(tabuleiro);
     novo->tabuleiro = *tabuleiro;
@@ -19,6 +20,7 @@ No* create_no(int* tabuleiro, unsigned short int* passo)
 
 void insertInList (Lista *f, No* novo)
 {
+    printf("Inicio função inserir na lista");
     if(listaIsEmpty(f) || novo->custo < f->head->custo)
     {
         novo->next = f->head;
@@ -49,6 +51,7 @@ No* removeFromList (Lista *f)
     }
     No* retorno = f->head;
     f->head = f->head->next;
+    retorno->next = NULL;
     return retorno;
 }
 

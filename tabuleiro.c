@@ -79,7 +79,7 @@ void moveRight(int *tabuleiro)
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    returnSpace(tabuleiro, &x, &y);
+    getSpace(tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y][x+1];
     puzzle[y][x+1] = aux;
@@ -92,7 +92,7 @@ void moveLeft(int *tabuleiro)
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    returnSpace(tabuleiro, &x, &y);
+    getSpace(tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y][x-1];
     puzzle[y][x-1] = aux;
@@ -105,7 +105,7 @@ void moveUp(int *tabuleiro)
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    returnSpace(tabuleiro, &x, &y);
+    getSpace(tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y-1][x];
     puzzle[y-1][x] = aux;
@@ -118,7 +118,7 @@ void moveDown(int *tabuleiro)
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    returnSpace(tabuleiro, &x, &y);
+    getSpace(tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y+1][x];
     puzzle[y+1][x] = aux;
