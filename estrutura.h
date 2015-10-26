@@ -56,7 +56,7 @@ void free_list (Lista *f);
  * \param No* novo
  * \return int
  */
-int puzzleExist(Lista *f, int puzzle);
+int puzzleExist(Lista *f, int puzzle,int passos);
 
 
 

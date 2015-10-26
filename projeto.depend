@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1445825474 source:/home/moscardi/Dropbox/UTFPR/segundo semestre/algoritimos 2/projeto/estrutura.c
+1445828073 source:/home/moscardi/Dropbox/UTFPR/segundo semestre/algoritimos 2/projeto/estrutura.c
 	"estrutura.h"
 
-1445820200 /home/moscardi/Dropbox/UTFPR/segundo semestre/algoritimos 2/projeto/estrutura.h
+1445826868 /home/moscardi/Dropbox/UTFPR/segundo semestre/algoritimos 2/projeto/estrutura.h
 	"tabuleiro.h"
 
 1445823241 /home/moscardi/Dropbox/UTFPR/segundo semestre/algoritimos 2/projeto/tabuleiro.h
@@ -11,7 +11,7 @@
 	<string.h>
 	<math.h>
 
-1445825045 source:/home/moscardi/Dropbox/UTFPR/segundo semestre/algoritimos 2/projeto/projeto.c
+1445830181 source:/home/moscardi/Dropbox/UTFPR/segundo semestre/algoritimos 2/projeto/projeto.c
 	"estrutura.h"
 	<time.h>
 
