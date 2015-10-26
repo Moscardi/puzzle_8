@@ -23,15 +23,7 @@ void insertInList (Lista *f, int tabuleiro,unsigned short int passo)
     Lista* l = create_list();
     l->head = f->head;
 
-    if( 1 == 0 && !listaIsEmpty(l) && novo->custo == l->head->custo && novo->passo < l->head->passo)
-    {
-        novo->next = l->head;
-        l->head = novo;
-        f->head = l->head;
-        free(l);
-        return;
-    }
-    else if(listaIsEmpty(l) || novo->custo + novo->passo < l->head->custo + l->head->passo)
+    if(listaIsEmpty(l) || novo->custo + novo->passo < l->head->custo + l->head->passo)
     {
         novo->next = l->head;
         l->head = novo;
@@ -42,14 +34,7 @@ void insertInList (Lista *f, int tabuleiro,unsigned short int passo)
 
     for(; !listaIsEmpty(l); l->head = l->head->next)
     {
-        if(1 ==0 && l->head->next != NULL && novo->custo == l->head->next->custo && novo->passo < l->head->next->passo)
-        {
-            novo->next = l->head->next;
-            l->head->next = novo;
-            free(l);
-            return;
-        }
-        else if(l->head->next == NULL || novo->custo + novo->passo < l->head->next->custo + l->head->next->passo)
+        if(l->head->next == NULL || novo->custo + novo->passo < l->head->next->custo + l->head->next->passo)
         {
             novo->next = l->head->next;
             l->head->next = novo;
@@ -98,7 +83,7 @@ int puzzleExist(Lista *f, int puzzle, int passos)
 
     while(!listaIsEmpty(aux))
     {
-        if(aux->head->tabuleiro == puzzle && aux->head->passo <= passos)
+        if(aux->head->tabuleiro == puzzle)
         {
             return (1 == 1);
         }

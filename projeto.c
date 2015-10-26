@@ -6,22 +6,85 @@
  * \param Lista* espera
  * \return int
  */
+unsigned short int TotalPassos(Lista* processados, Lista* espera);
+
+/** \brief Função Main, responsavel por coletar dados digitados e chamar a função para processar as possibilidades *
+ * \param int argc
+ * \param char const argc[]
+ * \return int
+ * \author Lucas Giovani
+ * \author José Moscardi da Silva Junior
+ */
+int main(int argc, char const *argv[])
+{
+    char **temp = create_matriz();
+    clock_t inicio, fim;
+    unsigned short int numeroPassos = 0;
+    Lista* puzzle = create_list();
+
+    /**< Pega os dados do teclado para montar o tabuleiro */
+    printf("Digite o tabuleiro desejado:\n");
+    __fpurge(stdin);
+    scanf("%c%c%c",&(temp[0][0]),&(temp[0][1]),&(temp[0][2]));
+    __fpurge(stdin);
+    scanf("%c%c%c",&(temp[1][0]),&(temp[1][1]),&(temp[1][2]));
+    __fpurge(stdin);
+    scanf("%c%c%c",&(temp[2][0]),&(temp[2][1]),&(temp[2][2]));
+    /**< Substitui o caracter que representa o espaço pelo valor 9 */
+    int a,b;
+    for(a=0; a<3; a++)
+    {
+        for(b=0; b<3; b++)
+        {
+            if (temp[a][b] < '1' || temp[a][b] > '8')
+            {
+                temp[a][b] = '9';
+                a=3;
+                b=3;
+            }
+        }
+    }
+
+    /**< insere o tabuleiro em uma lista inicial para começar o processamento dos números de passo */
+    int temporario_puzzle = matrizToInt(temp);
+    insertInList(puzzle,temporario_puzzle,numeroPassos);
+
+    /**< Pega o tempo inicial do sistema para calcular o tempo gasto */
+    inicio = clock();
+
+    /**<Chama a função que retorna o menor número de passos*/
+    numeroPassos = TotalPassos(create_list(),puzzle);
+
+    /**< Obtem o tempo do sistema para fazer o calculo do tempo gasto*/
+    fim = clock();
+    free_matriz(temp);
+
+    /**< Mostra os dados*/
+    printf("\n\n\nO menor número de passos para resolver o tabuleiro são %d passos\n",numeroPassos);
+    printf("\n\nExecução do algoritimo em %ld segundos\n", (fim - inicio)/ CLOCKS_PER_SEC);
+    return 0;
+}
+
 unsigned short int TotalPassos(Lista* processados, Lista* espera)
 {
+    /**< Seleciona um estado do puzzle a ser computado */
     No* processar = removeFromList(espera);
     int newPuzzle;
     unsigned short int newPasso;
     insertInList(processados,processar->tabuleiro,processar->passo);
 
-
+    /**< Verifica se o puzzle selecionado está correto */
     if(verifica_tabuleiro(processar->tabuleiro))
     {
+        /**< Caso o puzzle selecionado esteja correto, limpa os ponteiros em memoria e retorna o número de passos para resolver o puzzle */
         unsigned short int menor_passo = processar->passo;
         free(processar);
         free_list(espera);
         free_list(processados);
         return menor_passo;
     }
+
+    /**< Ramifica todas as possibilidades de jogadas, não repetidas, do puzzle selecionado e salva na lista (espera) para aguarda o processamento */
     int x,y;
     getSpace(processar->tabuleiro,&x,&y);
     if(x == 0 || x == 1)
@@ -65,51 +128,9 @@ unsigned short int TotalPassos(Lista* processados, Lista* espera)
         }
     }
 
-    //scanf("%d",&newPuzzle);
+    /**< Retira da memória o ponteiro com o ultimo tabuleiro computado, já que o mesmo se encontra na lista de processados */
     free(processar);
+
+    /**< Retorna recursivamente o número minimo dejogadas necessárias para resolver o puzzle */
     return TotalPassos(processados,espera);
-}
-
-/** \brief Função Main, responsavel por coletar dados digitados e chamar a função para processar as possibilidades *
- * \param int argc
- * \param char const argc[]
- * \return int
- * \author Lucas Giovani
- * \author José Moscardi da Silva Junior
- */
-int main(int argc, char const *argv[])
-{
-    char **temp = create_matriz();
-    clock_t inicio, fim;
-    unsigned short int numeroPassos = 0;
-    Lista* puzzle = create_list();
-
-    /**< Pega os dados do teclado para montar o tabuleiro */
-    printf("Digite o tabuleiro desejado:\n");
-    __fpurge(stdin);
-    scanf("%c%c%c",&(temp[0][0]),&(temp[0][1]),&(temp[0][2]));
-    __fpurge(stdin);
-    scanf("%c%c%c",&(temp[1][0]),&(temp[1][1]),&(temp[1][2]));
-    __fpurge(stdin);
-    scanf("%c%c%c",&(temp[2][0]),&(temp[2][1]),&(temp[2][2]));
-    temp[1][1] = '9';
-
-    /**< insere o tabuleiro em uma lista inicial para começar o processamento dos números de passo */
-    int temporario_puzzle = matrizToInt(temp);
-    insertInList(puzzle,temporario_puzzle,numeroPassos);
-
-    /**< Pega o tempo inicial do sistema para calcular o tempo gasto */
-    inicio = clock();
-
-    /**<Chama a função que retorna o menor número de passos*/
-    numeroPassos = TotalPassos(create_list(),puzzle);
-
-    /**< Obtem o tempo do sistema para fazer o calculo do tempo gasto*/
-    fim = clock();
-    free_matriz(temp);
-
-    /**< Mostra os dados*/
-    printf("\n\n\nO menor número de passos para resolver o tabuleiro são %d passos\n",numeroPassos);
-    printf("\n\nExecução do algoritimo em %ld segundos\n", (fim - inicio)/ CLOCKS_PER_SEC);
-    return 0;
 }

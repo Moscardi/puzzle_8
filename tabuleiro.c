@@ -59,7 +59,7 @@ void getSpace(int tabuleiro, int *x, int *y)
     {
         for (*x = 0; *x < 3; ++(*x))
         {
-            if (temp[*y][*x] == '9')
+            if (temp[*y][*x] < '1' || temp[*y][*x] > '8')
             {
                 free_matriz(temp);
                 return;

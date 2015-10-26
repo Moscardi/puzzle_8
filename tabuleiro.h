@@ -9,7 +9,7 @@
 
 /**
  *\brief Verifica se um tabuleiro está correto ou errado
- *\param int* tabuleiro
+ *\param int tabuleiro
  *\return int
  */
 int verifica_tabuleiro(int tabuleiro);
@@ -43,8 +43,8 @@ char** intToMatriz(int tabuleiro);
 int matrizToInt(char **tabuleiro);
 
 /**
- *\brief Retorna por ponteiro a localizalção do espaço vazio
- *\param int* tabuleiro
+ *\brief Retorna por ponteiro a localização do espaço vazio
+ *\param int tabuleiro
  *\param int* x
  *\param int* y
  *\return void
@@ -89,14 +89,14 @@ void printMatrizChar(char **puzzle	);
 
 /**
  *\brief Imprime o tabuleiro int
- * \param int* tabuleiro
+ * \param int tabuleiro
  *\return void
  */
 void printMatrizInt(int tabuleiro);
 
 /**
  *\brief Retorna o custo de um tabuleiro
- *\param int* tabuleiro
+ *\param int tabuleiro
  *\return unsigned short int
  */
 unsigned short int getCusto(int tabuleiro);

@@ -1,5 +1,7 @@
 #include "tabuleiro.h"
 
+/**< Classe que serve como interface para mexer com a estrutura TAD lista */
+
 typedef struct node
 {
     unsigned short int passo;
@@ -20,20 +22,21 @@ typedef struct lista
 Lista* create_list (void);
 
 /** \brief Cria um nó com o tabuleiro passado e calcula seu custo armazenando-o
- * \param int* tabuleiro
+ * \param int tabuleiro
+ * \param unsigned short int passo
  * \return No*
  */
 No* create_no(int tabuleiro, unsigned short int passo);
 
 /** \brief Armazena um Nó em uma lista de forma crescente em relação ao seu custo
  * \param Lista* f
- * \param int* tabuleiro
- * \param unsigned short int* passo
+ * \param int tabuleiro
+ * \param unsigned short int passo
  * \return void
  */
 void insertInList (Lista *f, int tabuleiro,unsigned short int passo);
 
-/** \brief Retorna o primeiro Nó da Lista, ou seja, o com o menor valor de custo
+/** \brief Retorna o primeiro Nó da Lista
  * \param Lista* f
  * \return No*
  */
@@ -53,7 +56,8 @@ void free_list (Lista *f);
 
 /** \brief Verifica se um determinado tabuleiro existe em uma Lista
  * \param Lista* f
- * \param No* novo
+ * \param int puzzle
+ * \param int passos
  * \return int
  */
 int puzzleExist(Lista *f, int puzzle,int passos);
