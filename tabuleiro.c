@@ -22,11 +22,6 @@ char ** create_matriz()
     return retorno;
 }
 
-int compara_tabuleiros(int tab1, int tab2)
-{
-    return (tab1 == tab2);
-}
-
 char** intToMatriz(int tabuleiro)
 {
     int a,b;

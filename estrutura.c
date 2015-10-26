@@ -22,7 +22,8 @@ void insertInList (Lista *f, int tabuleiro,unsigned short int passo)
     No* novo = create_no(tabuleiro,passo);
     Lista* l = create_list();
     l->head = f->head;
-    if(listaIsEmpty(l) || novo->custo < l->head->custo)
+
+    if(!listaIsEmpty(l) && novo->passo == l->head->passo && novo->custo < l->head->custo)
     {
         novo->next = l->head;
         l->head = novo;
@@ -30,16 +31,31 @@ void insertInList (Lista *f, int tabuleiro,unsigned short int passo)
         free(l);
         return;
     }
-    while(!listaIsEmpty(l))
+    else if(listaIsEmpty(l) || novo->passo < l->head->passo)
     {
-        if(l->head->next == NULL || novo->custo < l->head->next->custo)
+        novo->next = l->head;
+        l->head = novo;
+        f->head = l->head;
+        free(l);
+        return;
+    }
+
+    for(; !listaIsEmpty(l); l->head = l->head->next)
+    {
+        if(l->head->next != NULL && novo->passo == l->head->next->passo && novo->custo < l->head->next->custo)
         {
             novo->next = l->head->next;
             l->head->next = novo;
             free(l);
             return;
         }
-        l->head = l->head->next;
+        else if(l->head->next == NULL || novo->passo < l->head->next->passo)
+        {
+            novo->next = l->head->next;
+            l->head->next = novo;
+            free(l);
+            return;
+        }
     }
     printf("Erro ao inserir No na Lista\n");
     exit(1);
@@ -82,7 +98,7 @@ int puzzleExist(Lista *f, int puzzle)
 
     while(!listaIsEmpty(aux))
     {
-        if(compara_tabuleiros(aux->head->tabuleiro,puzzle))
+        if(aux->head->tabuleiro == puzzle)
         {
             return (1 == 1);
         }

@@ -14,7 +14,7 @@ unsigned short int TotalPassos(Lista* processados, Lista* espera)
     insertInList(processados,processar->tabuleiro,processar->passo);
 
     printf("----------------------------------------------------------\n");
-    printf("Tabuleiro processado: pontuação %d\n\n",processar->custo);
+    printf("Tabuleiro processado: custo: %d\tnumero de passos: %d\n\n",processar->custo,processar->passo);
     printMatrizInt(processar->tabuleiro);
     if(verifica_tabuleiro(processar->tabuleiro))
     {
@@ -30,7 +30,7 @@ unsigned short int TotalPassos(Lista* processados, Lista* espera)
     {
         newPuzzle = processar->tabuleiro;
         moveRight(&newPuzzle);
-        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
+        if(!puzzleExist(processados,newPuzzle))
         {
             newPasso = processar->passo + 1;
             insertInList(espera,newPuzzle,newPasso);
@@ -40,7 +40,7 @@ unsigned short int TotalPassos(Lista* processados, Lista* espera)
     {
         newPuzzle = processar->tabuleiro;
         moveLeft(&newPuzzle);
-        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
+        if(!puzzleExist(processados,newPuzzle))
         {
             newPasso = processar->passo + 1;
             insertInList(espera,newPuzzle,newPasso);
@@ -50,7 +50,7 @@ unsigned short int TotalPassos(Lista* processados, Lista* espera)
     {
         newPuzzle = processar->tabuleiro;
         moveDown(&newPuzzle);
-        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
+        if(!puzzleExist(processados,newPuzzle))
         {
             newPasso = processar->passo + 1;
             insertInList(espera,newPuzzle,newPasso);
@@ -60,7 +60,7 @@ unsigned short int TotalPassos(Lista* processados, Lista* espera)
     {
         newPuzzle = processar->tabuleiro;
         moveUp(&newPuzzle);
-        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
+        if(!puzzleExist(processados,newPuzzle))
         {
             newPasso = processar->passo + 1;
             insertInList(espera,newPuzzle,newPasso);

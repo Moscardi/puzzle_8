@@ -29,14 +29,6 @@ void free_matriz(char **lixo);
 char ** create_matriz();
 
 /**
- *\brief Verifica a igualdade de dois tabuleiros, retornando se são diferentes ou não.
- *\param int* tab1
- *\param int* tab2
- *\return int
- */
-int compara_tabuleiros(int tab1, int tab2);
-
-/**
  *\brief Transforma um inteiro em uma matriz char 3x3
  *\param int tabuleiro
  *\return char[3][3]
