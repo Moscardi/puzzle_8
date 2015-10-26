@@ -1,8 +1,8 @@
 #include "tabuleiro.h"
 
-int verifica_tabuleiro(int *tabuleiro)
+int verifica_tabuleiro(int tabuleiro)
 {
-    return (*tabuleiro == 123894765);
+    return (tabuleiro == 123894765);
 }
 
 void free_matriz(char **lixo)
@@ -22,9 +22,9 @@ char ** create_matriz()
     return retorno;
 }
 
-int compara_tabuleiros(int *tab1, int* tab2)
+int compara_tabuleiros(int tab1, int tab2)
 {
-    return (*tab1 == *tab2);
+    return (tab1 == tab2);
 }
 
 char** intToMatriz(int tabuleiro)
@@ -57,9 +57,9 @@ int matrizToInt(char **tabuleiro)
     return retorno;
 }
 
-void getSpace(int *tabuleiro, int *x, int *y)
+void getSpace(int tabuleiro, int *x, int *y)
 {
-    char **temp = intToMatriz(*tabuleiro);
+    char **temp = intToMatriz(tabuleiro);
     for (*y = 0; *y < 3; ++(*y))
     {
         for (*x = 0; *x < 3; ++(*x))
@@ -76,12 +76,10 @@ void getSpace(int *tabuleiro, int *x, int *y)
 
 void moveRight(int *tabuleiro)
 {
-    printMatrizInt(tabuleiro);
-    printf("Moveu o espaço para direita\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    getSpace(tabuleiro, &x, &y);
+    getSpace(*tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y][x+1];
     puzzle[y][x+1] = aux;
@@ -91,12 +89,10 @@ void moveRight(int *tabuleiro)
 
 void moveLeft(int *tabuleiro)
 {
-    printMatrizInt(tabuleiro);
-    printf("Moveu o espaço para esquerda\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    getSpace(tabuleiro, &x, &y);
+    getSpace(*tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y][x-1];
     puzzle[y][x-1] = aux;
@@ -106,12 +102,10 @@ void moveLeft(int *tabuleiro)
 
 void moveUp(int *tabuleiro)
 {
-    printMatrizInt(tabuleiro);
-    printf("Moveu o espaço para cima\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    getSpace(tabuleiro, &x, &y);
+    getSpace(*tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y-1][x];
     puzzle[y-1][x] = aux;
@@ -121,12 +115,10 @@ void moveUp(int *tabuleiro)
 
 void moveDown(int *tabuleiro)
 {
-    printMatrizInt(tabuleiro);
-    printf("Moveu o espaço para baixo\n");
     char ** puzzle = intToMatriz(*tabuleiro);
     int x,y;
     char aux;
-    getSpace(tabuleiro, &x, &y);
+    getSpace(*tabuleiro, &x, &y);
     aux = puzzle[y][x];
     puzzle[y][x] = puzzle[y+1][x];
     puzzle[y+1][x] = aux;
@@ -137,7 +129,6 @@ void moveDown(int *tabuleiro)
 void printMatrizChar(char **puzzle	)
 {
     int a,b;
-    printf("----\n");
     for (a = 0; a < 3; ++a)
     {
         for (b = 0; b < 3; ++b)
@@ -152,17 +143,17 @@ void printMatrizChar(char **puzzle	)
     printf("\n");
 }
 
-void printMatrizInt(int *tabuleiro)
+void printMatrizInt(int tabuleiro)
 {
     char **puzzle = create_matriz();
-    puzzle = intToMatriz(*tabuleiro);
+    puzzle = intToMatriz(tabuleiro);
     printMatrizChar(puzzle);
     free_matriz(puzzle);
 }
 
-unsigned short int getCusto(int *tabuleiro)
+unsigned short int getCusto(int tabuleiro)
 {
-    char **puzzle = intToMatriz(*tabuleiro);
+    char **puzzle = intToMatriz(tabuleiro);
     int a, b;
     unsigned short int custo = 0;
     for(a = 0; a < 3; a++)

@@ -12,7 +12,7 @@
  *\param int* tabuleiro
  *\return int
  */
-int verifica_tabuleiro(int *tabuleiro);
+int verifica_tabuleiro(int tabuleiro);
 
 /**
  *\brief Retira da memória uma determinada matrix 3x3
@@ -34,7 +34,7 @@ char ** create_matriz();
  *\param int* tab2
  *\return int
  */
-int compara_tabuleiros(int *tab1, int* tab2);
+int compara_tabuleiros(int tab1, int tab2);
 
 /**
  *\brief Transforma um inteiro em uma matriz char 3x3
@@ -57,7 +57,7 @@ int matrizToInt(char **tabuleiro);
  *\param int* y
  *\return void
  */
-void getSpace(int *tabuleiro, int *x, int *y);
+void getSpace(int tabuleiro, int *x, int *y);
 
 /**
  *\brief Faz o movimento para a direita
@@ -100,12 +100,12 @@ void printMatrizChar(char **puzzle	);
  * \param int* tabuleiro
  *\return void
  */
-void printMatrizInt(int *tabuleiro);
+void printMatrizInt(int tabuleiro);
 
 /**
  *\brief Retorna o custo de um tabuleiro
  *\param int* tabuleiro
  *\return unsigned short int
  */
-unsigned short int getCusto(int *tabuleiro);
+unsigned short int getCusto(int tabuleiro);
 

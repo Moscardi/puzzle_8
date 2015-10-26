@@ -7,31 +7,36 @@ Lista* create_list (void)
     return f;
 }
 
-No* create_no(int* tabuleiro, unsigned short int* passo)
+No* create_no(int tabuleiro, unsigned short int passo)
 {
     No* novo = (No*)malloc(sizeof(No));
     novo->custo = getCusto(tabuleiro);
-    novo->tabuleiro = *tabuleiro;
-    novo->passo = *passo;
+    novo->tabuleiro = tabuleiro;
+    novo->passo = passo;
     novo->next = NULL;
     return novo;
 }
 
-void insertInList (Lista *f, No* novo)
+void insertInList (Lista *f, int tabuleiro,unsigned short int passo)
 {
-    if(listaIsEmpty(f) || novo->custo < f->head->custo)
+    No* novo = create_no(tabuleiro,passo);
+    Lista* l = create_list();
+    l->head = f->head;
+    if(listaIsEmpty(l) || novo->custo < l->head->custo)
     {
-        novo->next = f->head;
-        f->head = novo;
+        novo->next = l->head;
+        l->head = novo;
+        f->head = l->head;
+        free(l);
         return;
     }
-    Lista* l = f;
     while(!listaIsEmpty(l))
     {
         if(l->head->next == NULL || novo->custo < l->head->next->custo)
         {
             novo->next = l->head->next;
             l->head->next = novo;
+            free(l);
             return;
         }
         l->head = l->head->next;
@@ -48,7 +53,7 @@ No* removeFromList (Lista *f)
         exit(1); /*aborta programa*/
     }
     No* retorno = f->head;
-    f->head = f->head->next;
+    f->head = retorno->next;
     retorno->next = NULL;
     return retorno;
 }
@@ -70,19 +75,18 @@ void free_list (Lista *f)
     free(f);
 }
 
-int puzzleExist(Lista *f, int* puzzle)
+int puzzleExist(Lista *f, int puzzle)
 {
-    Lista* aux;
-    aux = f;
+    Lista *aux = create_list();
+    aux->head = f->head;
 
     while(!listaIsEmpty(aux))
     {
-        printf("%d == %d ?\n",(aux->head->tabuleiro), *puzzle);
-        if(compara_tabuleiros(&(aux->head->tabuleiro),puzzle)){
+        if(compara_tabuleiros(aux->head->tabuleiro,puzzle))
+        {
             return (1 == 1);
         }
         aux->head = aux->head->next;
     }
-    printf("Nenhuma tabuleiro igual\n");
     return (1 == 0);
 }

@@ -23,14 +23,15 @@ Lista* create_list (void);
  * \param int* tabuleiro
  * \return No*
  */
-No* create_no(int* tabuleiro, unsigned short int* passo);
+No* create_no(int tabuleiro, unsigned short int passo);
 
 /** \brief Armazena um Nó em uma lista de forma crescente em relação ao seu custo
  * \param Lista* f
- * \param No* novo
+ * \param int* tabuleiro
+ * \param unsigned short int* passo
  * \return void
  */
-void insertInList (Lista *f, No* novo);
+void insertInList (Lista *f, int tabuleiro,unsigned short int passo);
 
 /** \brief Retorna o primeiro Nó da Lista, ou seja, o com o menor valor de custo
  * \param Lista* f
@@ -55,7 +56,7 @@ void free_list (Lista *f);
  * \param No* novo
  * \return int
  */
-int puzzleExist(Lista *f, int* puzzle);
+int puzzleExist(Lista *f, int puzzle);
 
 
 

@@ -8,68 +8,67 @@
  */
 unsigned short int TotalPassos(Lista* processados, Lista* espera)
 {
-    No* processar= removeFromList(espera);
+    No* processar = removeFromList(espera);
     int newPuzzle;
-    unsigned short int *newPasso = (unsigned short int *)malloc(sizeof(unsigned short int));
-    insertInList(processados,processar);
-    if(verifica_tabuleiro(&(processar->tabuleiro)))
+    unsigned short int newPasso;
+    insertInList(processados,processar->tabuleiro,processar->passo);
+
+    printf("----------------------------------------------------------\n");
+    printf("Tabuleiro processado: pontuação %d\n\n",processar->custo);
+    printMatrizInt(processar->tabuleiro);
+    if(verifica_tabuleiro(processar->tabuleiro))
     {
         unsigned short int menor_passo = processar->passo;
         free(processar);
-        free(newPasso);
         free_list(espera);
         free_list(processados);
         return menor_passo;
     }
     int x,y;
-    getSpace(&(processar->tabuleiro),&x,&y);
+    getSpace(processar->tabuleiro,&x,&y);
     if(x == 0 || x == 1)
     {
         newPuzzle = processar->tabuleiro;
         moveRight(&newPuzzle);
-        if(!puzzleExist(processados,&newPuzzle) && !puzzleExist(espera,&newPuzzle))
+        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
         {
-            *newPasso = processar->passo + 1;
-            insertInList(espera,create_no(&newPuzzle,newPasso));
-            printf("tabuleiro adicionado a lista de espera\n");
+            newPasso = processar->passo + 1;
+            insertInList(espera,newPuzzle,newPasso);
         }
     }
     if(x == 1 || x == 2)
     {
         newPuzzle = processar->tabuleiro;
         moveLeft(&newPuzzle);
-        if(!puzzleExist(processados,&newPuzzle) && !puzzleExist(espera,&newPuzzle))
+        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
         {
-            *newPasso = processar->passo + 1;
-            insertInList(espera,create_no(&newPuzzle,newPasso));
-            printf("tabuleiro adicionado a lista de espera\n");
+            newPasso = processar->passo + 1;
+            insertInList(espera,newPuzzle,newPasso);
         }
     }
     if(y == 0 || y == 1)
     {
         newPuzzle = processar->tabuleiro;
         moveDown(&newPuzzle);
-        if(!puzzleExist(processados,&newPuzzle) && !puzzleExist(espera,&newPuzzle))
+        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
         {
-            *newPasso = processar->passo + 1;
-            insertInList(espera,create_no(&newPuzzle,newPasso));
-            printf("tabuleiro adicionado a lista de espera\n");
+            newPasso = processar->passo + 1;
+            insertInList(espera,newPuzzle,newPasso);
         }
     }
     if(y == 1 || y == 2)
     {
         newPuzzle = processar->tabuleiro;
         moveUp(&newPuzzle);
-        if(!puzzleExist(processados,&newPuzzle) && !puzzleExist(espera,&newPuzzle))
+        if(!puzzleExist(processados,newPuzzle) && !puzzleExist(espera,newPuzzle))
         {
-            *newPasso = processar->passo + 1;
-            insertInList(espera,create_no(&newPuzzle,newPasso));
-            printf("tabuleiro adicionado a lista de espera\n");
+            newPasso = processar->passo + 1;
+            insertInList(espera,newPuzzle,newPasso);
         }
     }
 
-    scanf("%d",newPasso);
-    free(newPasso);
+    //scanf("%d",&newPuzzle);
+    free(processar);
     return TotalPassos(processados,espera);
 }
 
@@ -98,10 +97,8 @@ int main(int argc, char const *argv[])
     temp[1][1] = '9';
 
     /**< insere o tabuleiro em uma lista inicial para começar o processamento dos números de passo */
-    int *temporario_puzzle = (int*)malloc(sizeof(int));
-    *temporario_puzzle = matrizToInt(temp);
-    insertInList(puzzle,create_no(temporario_puzzle,&numeroPassos));
-    free(temporario_puzzle);
+    int temporario_puzzle = matrizToInt(temp);
+    insertInList(puzzle,temporario_puzzle,numeroPassos);
 
     /**< Pega o tempo inicial do sistema para calcular o tempo gasto */
     inicio = clock();
@@ -114,7 +111,7 @@ int main(int argc, char const *argv[])
     free_matriz(temp);
 
     /**< Mostra os dados*/
-    printf("O menor número de passos para resolver o tabuleiro são %d passos\n",numeroPassos);
+    printf("\n\n\nO menor número de passos para resolver o tabuleiro são %d passos\n",numeroPassos);
     printf("\n\nExecução do algoritimo em %ld segundos\n", (fim - inicio)/ CLOCKS_PER_SEC);
     return 0;
 }
